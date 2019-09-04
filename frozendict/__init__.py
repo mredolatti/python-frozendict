@@ -9,11 +9,16 @@ try:
 except ImportError:  # python < 2.7
     OrderedDict = NotImplemented
 
+try:
+    from collections.abc import Mapping # python >= 3.8
+except ImportError:
+    from collections import Mapping
+
 
 iteritems = getattr(dict, 'iteritems', dict.items) # py2-3 compatibility
 
 
-class frozendict(collections.Mapping):
+class frozendict(Mapping):
     """
     An immutable wrapper around dictionaries that implements the complete :py:class:`collections.Mapping`
     interface. It can be used as a drop-in replacement for dictionaries where immutability is desired.
